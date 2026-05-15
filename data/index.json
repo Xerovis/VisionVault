@@ -58,5 +58,15 @@
     "thumbnail": "assets/images/ego4d.svg",
     "author": "Meta AI",
     "short_description": "Massive egocentric video collection for multimodal understanding and embodied AI."
+  },
+  {
+    "id": "cifar-10",
+    "title": "CIFAR-10",
+    "type": "Image classification",
+    "year": 2009,
+    "tags": ["image", "classification", "benchmark"],
+    "thumbnail": "",
+    "author": "MIT and NYU",
+    "short_description": "A well-known image classification dataset, 10 classes, 32 x 32 pixel images."
   }
 ]
