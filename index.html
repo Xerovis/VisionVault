@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -26,8 +26,8 @@
       <p class="hero__kicker">OPEN SOURCE · COMPUTER VISION</p>
       <h1>VisionVault Neural Dataset Archive</h1>
       <p>
-        A cyberpunk-inspired intelligence dashboard to search, filter, sort, and explore
-        computer vision datasets at scale.
+        A cyberpunk-inspired intelligence dashboard to search, filter, sort, and
+        explore computer vision datasets at scale.
       </p>
       <div class="hero__stats" id="hero-stats" aria-live="polite"></div>
     </header>
@@ -49,23 +49,41 @@
         </div>
 
         <div class="sort-wrap">
-          <label for="sort-select">Sort by</label>
-          <select id="sort-select">
-            <option value="recentlyAdded">Recently Added</option>
-            <option value="yearDesc">Year (Newest)</option>
-            <option value="yearAsc">Year (Oldest)</option>
-            <option value="alphabeticalAsc">Alphabetical (A-Z)</option>
-            <option value="alphabeticalDesc">Alphabetical (Z-A)</option>
-            <option value="samplesDesc">Samples (High-Low)</option>
-            <option value="sizeDesc">Dataset Size (Largest)</option>
-          </select>
+          <label id="sort-label">Sort by</label>
+          <button
+            id="sort-select"
+            class="sort-trigger"
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="sort-options"
+            aria-labelledby="sort-label sort-select-label"
+          >
+            <span id="sort-select-label" class="sort-trigger__value"
+              >Recently Added</span
+            >
+            <span class="sort-trigger__caret" aria-hidden="true">⌄</span>
+          </button>
+          <ul
+            id="sort-options"
+            class="sort-options"
+            role="listbox"
+            aria-labelledby="sort-label"
+          ></ul>
         </div>
 
         <div class="control-panel__actions">
-          <button id="favorites-toggle" class="chip" type="button" aria-pressed="false">
+          <button
+            id="favorites-toggle"
+            class="chip"
+            type="button"
+            aria-pressed="false"
+          >
             Favorites only
           </button>
-          <button id="clear-filters" class="chip chip--muted" type="button">Reset filters</button>
+          <button id="clear-filters" class="chip chip--muted" type="button">
+            Reset filters
+          </button>
         </div>
       </section>
 
@@ -111,8 +129,17 @@
 
     <dialog id="dataset-modal" class="dataset-modal">
       <div class="dataset-modal__backdrop" data-modal-close></div>
-      <article class="dataset-modal__content glass" role="document" aria-modal="true">
-        <button id="modal-close" class="dataset-modal__close" data-modal-close aria-label="Close details">
+      <article
+        class="dataset-modal__content glass"
+        role="document"
+        aria-modal="true"
+      >
+        <button
+          id="modal-close"
+          class="dataset-modal__close"
+          data-modal-close
+          aria-label="Close details"
+        >
           ✕
         </button>
         <div id="modal-body"></div>
@@ -121,15 +148,28 @@
 
     <template id="dataset-card-template">
       <article class="dataset-card glass reveal-on-scroll">
-        <button class="dataset-card__favorite" type="button" aria-label="Toggle favorite">☆</button>
-        <img class="dataset-card__image" alt="" loading="lazy" decoding="async" />
+        <button
+          class="dataset-card__favorite"
+          type="button"
+          aria-label="Toggle favorite"
+        >
+          ☆
+        </button>
+        <img
+          class="dataset-card__image"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
         <div class="dataset-card__content">
           <h3 class="dataset-card__title"></h3>
           <p class="dataset-card__meta"></p>
           <p class="dataset-card__meta dataset-card__meta--detail"></p>
           <div class="dataset-card__tags"></div>
           <p class="dataset-card__description"></p>
-          <button class="dataset-card__button" type="button">Open dossier</button>
+          <button class="dataset-card__button" type="button">
+            Open dossier
+          </button>
         </div>
       </article>
     </template>

@@ -1,14 +1,14 @@
-import { createSearchController } from './components/search.js';
-import { createFilterController } from './components/filters.js';
-import { createModalController } from './components/modal.js';
+import { createSearchController } from "./components/search.js";
+import { createFilterController } from "./components/filters.js";
+import { createModalController } from "./components/modal.js";
 
 const state = {
   index: [],
   details: new Map(),
   filtered: [],
   visibleCount: 12,
-  query: '',
-  sort: 'recentlyAdded',
+  query: "",
+  sort: "recentlyAdded",
   favoritesOnly: false,
   favorites: loadFavorites(),
   filters: {
@@ -17,25 +17,37 @@ const state = {
     modality: [],
     license: [],
     media: [],
-    year: []
-  }
+    year: [],
+  },
 };
 
+const sortOptions = [
+  { value: "recentlyAdded", label: "Recently Added" },
+  { value: "yearDesc", label: "Year (Newest)" },
+  { value: "yearAsc", label: "Year (Oldest)" },
+  { value: "alphabeticalAsc", label: "Alphabetical (A-Z)" },
+  { value: "alphabeticalDesc", label: "Alphabetical (Z-A)" },
+  { value: "samplesDesc", label: "Samples (High-Low)" },
+  { value: "sizeDesc", label: "Dataset Size (Largest)" },
+];
+
 const els = {
-  grid: document.querySelector('#dataset-grid'),
-  cardTemplate: document.querySelector('#dataset-card-template'),
-  searchInput: document.querySelector('#search-input'),
-  suggestions: document.querySelector('#search-suggestions'),
-  sortSelect: document.querySelector('#sort-select'),
-  clearFilters: document.querySelector('#clear-filters'),
-  filters: document.querySelector('.filters'),
-  resultCount: document.querySelector('#result-count'),
-  emptyState: document.querySelector('#empty-state'),
-  stats: document.querySelector('#hero-stats'),
-  sentinel: document.querySelector('#scroll-sentinel'),
-  favoritesToggle: document.querySelector('#favorites-toggle'),
-  modal: document.querySelector('#dataset-modal'),
-  modalBody: document.querySelector('#modal-body')
+  grid: document.querySelector("#dataset-grid"),
+  cardTemplate: document.querySelector("#dataset-card-template"),
+  searchInput: document.querySelector("#search-input"),
+  suggestions: document.querySelector("#search-suggestions"),
+  sortSelect: document.querySelector("#sort-select"),
+  sortLabel: document.querySelector("#sort-select-label"),
+  sortOptions: document.querySelector("#sort-options"),
+  clearFilters: document.querySelector("#clear-filters"),
+  filters: document.querySelector(".filters"),
+  resultCount: document.querySelector("#result-count"),
+  emptyState: document.querySelector("#empty-state"),
+  stats: document.querySelector("#hero-stats"),
+  sentinel: document.querySelector("#scroll-sentinel"),
+  favoritesToggle: document.querySelector("#favorites-toggle"),
+  modal: document.querySelector("#dataset-modal"),
+  modalBody: document.querySelector("#modal-body"),
 };
 
 const filterController = createFilterController({
@@ -43,7 +55,7 @@ const filterController = createFilterController({
   onChange: (selected) => {
     state.filters = selected;
     applyAndRender();
-  }
+  },
 });
 
 const searchController = createSearchController({
@@ -56,13 +68,13 @@ const searchController = createSearchController({
   onSuggestionPick: (query) => {
     state.query = query;
     applyAndRender();
-  }
+  },
 });
 
 const modalController = createModalController({
   dialog: els.modal,
   body: els.modalBody,
-  closeSelectors: ['[data-modal-close]']
+  closeSelectors: ["[data-modal-close]"],
 });
 
 bootstrap().catch((error) => {
@@ -71,9 +83,10 @@ bootstrap().catch((error) => {
 });
 
 async function bootstrap() {
-  state.index = await fetchJson('./data/index.json');
+  state.index = await fetchJson("./data/index.json");
   renderHeaderStats();
   renderFilterOptions();
+  renderSortOptions();
   applyAndRender();
   wireInteractions();
   observeInfiniteScroll();
@@ -82,25 +95,101 @@ async function bootstrap() {
 }
 
 function wireInteractions() {
-  els.sortSelect.addEventListener('change', async (event) => {
-    state.sort = event.target.value;
-    if (['samplesDesc', 'sizeDesc', 'recentlyAdded'].includes(state.sort)) {
+  const closeSortMenu = () => {
+    els.sortSelect.classList.remove("is-open");
+    els.sortOptions.classList.remove("is-open");
+    els.sortSelect.setAttribute("aria-expanded", "false");
+  };
+
+  const openSortMenu = () => {
+    els.sortSelect.classList.add("is-open");
+    els.sortOptions.classList.add("is-open");
+    els.sortSelect.setAttribute("aria-expanded", "true");
+  };
+
+  els.sortSelect.addEventListener("click", () => {
+    if (els.sortOptions.classList.contains("is-open")) {
+      closeSortMenu();
+    } else {
+      openSortMenu();
+    }
+  });
+
+  els.sortOptions.addEventListener("click", async (event) => {
+    const option = event.target.closest("[data-sort-value]");
+    if (!option) return;
+
+    state.sort = option.dataset.sortValue;
+    updateSortSelection();
+    closeSortMenu();
+
+    if (["samplesDesc", "sizeDesc", "recentlyAdded"].includes(state.sort)) {
       await ensureAllDetails();
       renderFilterOptions();
     }
     applyAndRender();
   });
 
-  els.clearFilters.addEventListener('click', () => {
-    state.query = '';
-    els.searchInput.value = '';
+  document.addEventListener("click", (event) => {
+    if (
+      !els.sortSelect.contains(event.target) &&
+      !els.sortOptions.contains(event.target)
+    ) {
+      closeSortMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSortMenu();
+    }
+  });
+
+  els.clearFilters.addEventListener("click", () => {
+    state.query = "";
+    els.searchInput.value = "";
     filterController.reset();
   });
 
-  els.favoritesToggle.addEventListener('click', () => {
+  els.favoritesToggle.addEventListener("click", () => {
     state.favoritesOnly = !state.favoritesOnly;
-    els.favoritesToggle.setAttribute('aria-pressed', String(state.favoritesOnly));
+    els.favoritesToggle.setAttribute(
+      "aria-pressed",
+      String(state.favoritesOnly),
+    );
     applyAndRender();
+  });
+}
+
+function renderSortOptions() {
+  els.sortOptions.innerHTML = "";
+
+  sortOptions.forEach((option) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "sort-option";
+    button.dataset.sortValue = option.value;
+    button.setAttribute("role", "option");
+    button.textContent = option.label;
+
+    li.append(button);
+    els.sortOptions.append(li);
+  });
+
+  updateSortSelection();
+}
+
+function updateSortSelection() {
+  const selected =
+    sortOptions.find((option) => option.value === state.sort) || sortOptions[0];
+  els.sortLabel.textContent = selected.label;
+
+  els.sortOptions.querySelectorAll(".sort-option").forEach((button) => {
+    const isActive = button.dataset.sortValue === state.sort;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
   });
 }
 
@@ -118,10 +207,10 @@ function applyAndRender() {
       detail.annotation_type,
       detail.modality,
       detail.license,
-      detail.description
+      detail.description,
     ]
       .filter(Boolean)
-      .join(' ')
+      .join(" ")
       .toLowerCase();
     return searchable.includes(query);
   });
@@ -132,7 +221,10 @@ function applyAndRender() {
     : byFilters;
 
   state.filtered = sortDatasets(byFavorites, state.sort);
-  state.visibleCount = Math.max(12, Math.min(state.visibleCount, state.filtered.length || 12));
+  state.visibleCount = Math.max(
+    12,
+    Math.min(state.visibleCount, state.filtered.length || 12),
+  );
 
   const suggestionSource = new Set();
   state.index.forEach((dataset) => {
@@ -157,7 +249,7 @@ function passFilters(dataset) {
     modality: [detail.modality],
     license: [detail.license],
     media: [media],
-    year: [String(dataset.year)]
+    year: [String(dataset.year)],
   };
 
   return filterController.fields.every((field) => {
@@ -170,90 +262,100 @@ function passFilters(dataset) {
 function sortDatasets(list, mode) {
   const clone = [...list];
   const numericSize = (dataset) => {
-    const raw = state.details.get(dataset.id)?.size || '';
+    const raw = state.details.get(dataset.id)?.size || "";
     const match = /([\d.]+)\s*(TB|GB|MB)/i.exec(raw);
     if (!match) return 0;
     const n = Number(match[1]);
     const unit = match[2].toUpperCase();
-    return unit === 'TB' ? n * 1024 : unit === 'GB' ? n : n / 1024;
+    return unit === "TB" ? n * 1024 : unit === "GB" ? n : n / 1024;
   };
 
   switch (mode) {
-    case 'yearAsc':
+    case "yearAsc":
       return clone.sort((a, b) => a.year - b.year);
-    case 'yearDesc':
+    case "yearDesc":
       return clone.sort((a, b) => b.year - a.year);
-    case 'alphabeticalAsc':
+    case "alphabeticalAsc":
       return clone.sort((a, b) => a.title.localeCompare(b.title));
-    case 'alphabeticalDesc':
+    case "alphabeticalDesc":
       return clone.sort((a, b) => b.title.localeCompare(a.title));
-    case 'samplesDesc':
-      return clone.sort((a, b) => (state.details.get(b.id)?.samples || 0) - (state.details.get(a.id)?.samples || 0));
-    case 'sizeDesc':
+    case "samplesDesc":
+      return clone.sort(
+        (a, b) =>
+          (state.details.get(b.id)?.samples || 0) -
+          (state.details.get(a.id)?.samples || 0),
+      );
+    case "sizeDesc":
       return clone.sort((a, b) => numericSize(b) - numericSize(a));
-    case 'recentlyAdded':
+    case "recentlyAdded":
     default:
       return clone.sort((a, b) => {
-        const dA = new Date(state.details.get(a.id)?.last_updated || '1970-01-01');
-        const dB = new Date(state.details.get(b.id)?.last_updated || '1970-01-01');
+        const dA = new Date(
+          state.details.get(a.id)?.last_updated || "1970-01-01",
+        );
+        const dB = new Date(
+          state.details.get(b.id)?.last_updated || "1970-01-01",
+        );
         return dB - dA;
       });
   }
 }
 
 function renderGrid() {
-  els.grid.innerHTML = '';
+  els.grid.innerHTML = "";
   const visible = state.filtered.slice(0, state.visibleCount);
 
   visible.forEach((dataset) => {
     const detail = state.details.get(dataset.id);
     const node = els.cardTemplate.content.firstElementChild.cloneNode(true);
 
-    const favButton = node.querySelector('.dataset-card__favorite');
-    favButton.classList.toggle('is-active', state.favorites.has(dataset.id));
-    favButton.textContent = state.favorites.has(dataset.id) ? '★' : '☆';
-    favButton.addEventListener('click', (event) => {
+    const favButton = node.querySelector(".dataset-card__favorite");
+    favButton.classList.toggle("is-active", state.favorites.has(dataset.id));
+    favButton.textContent = state.favorites.has(dataset.id) ? "★" : "☆";
+    favButton.addEventListener("click", (event) => {
       event.stopPropagation();
       toggleFavorite(dataset.id);
-      favButton.classList.toggle('is-active', state.favorites.has(dataset.id));
-      favButton.textContent = state.favorites.has(dataset.id) ? '★' : '☆';
+      favButton.classList.toggle("is-active", state.favorites.has(dataset.id));
+      favButton.textContent = state.favorites.has(dataset.id) ? "★" : "☆";
       if (state.favoritesOnly && !state.favorites.has(dataset.id)) {
         applyAndRender();
       }
     });
 
-    const image = node.querySelector('.dataset-card__image');
+    const image = node.querySelector(".dataset-card__image");
     image.src = dataset.thumbnail;
     image.alt = `${dataset.title} preview`;
-    image.addEventListener('error', () => {
-      image.src = 'assets/images/fallback.svg';
+    image.addEventListener("error", () => {
+      image.src = "assets/images/fallback.svg";
     });
 
-    node.querySelector('.dataset-card__title').textContent = dataset.title;
-    node.querySelector('.dataset-card__meta').textContent = `${dataset.type} · ${dataset.year} · ${dataset.author}`;
-    node.querySelector('.dataset-card__meta--detail').textContent = detail
-      ? `${detail.annotation_type || 'Unknown annotation'} · ${numberLabel(detail.samples)} samples`
-      : 'Load details for annotation + sample statistics';
-    node.querySelector('.dataset-card__description').textContent = dataset.short_description;
+    node.querySelector(".dataset-card__title").textContent = dataset.title;
+    node.querySelector(".dataset-card__meta").textContent =
+      `${dataset.type} · ${dataset.year} · ${dataset.author}`;
+    node.querySelector(".dataset-card__meta--detail").textContent = detail
+      ? `${detail.annotation_type || "Unknown annotation"} · ${numberLabel(detail.samples)} samples`
+      : "Load details for annotation + sample statistics";
+    node.querySelector(".dataset-card__description").textContent =
+      dataset.short_description;
 
-    const tagsWrap = node.querySelector('.dataset-card__tags');
+    const tagsWrap = node.querySelector(".dataset-card__tags");
     (dataset.tags || []).slice(0, 4).forEach((tag) => {
-      const span = document.createElement('span');
-      span.className = 'dataset-card__tag';
+      const span = document.createElement("span");
+      span.className = "dataset-card__tag";
       span.textContent = tag;
       tagsWrap.append(span);
     });
 
-    const openButton = node.querySelector('.dataset-card__button');
+    const openButton = node.querySelector(".dataset-card__button");
     const openCard = () => openDatasetModal(dataset.id);
-    openButton.addEventListener('click', openCard);
-    node.addEventListener('dblclick', openCard);
+    openButton.addEventListener("click", openCard);
+    node.addEventListener("dblclick", openCard);
 
     els.grid.append(node);
   });
 
-  els.resultCount.textContent = `${state.filtered.length} result${state.filtered.length === 1 ? '' : 's'} shown`;
-  els.emptyState.classList.toggle('hidden', state.filtered.length !== 0);
+  els.resultCount.textContent = `${state.filtered.length} result${state.filtered.length === 1 ? "" : "s"} shown`;
+  els.emptyState.classList.toggle("hidden", state.filtered.length !== 0);
 }
 
 async function openDatasetModal(id) {
@@ -267,20 +369,26 @@ function renderHeaderStats() {
   els.stats.innerHTML = [
     `${state.index.length} datasets`,
     `${uniqueTypes.size} categories`,
-    `${years[0]}-${years.at(-1)} coverage`
+    `${years[0]}-${years.at(-1)} coverage`,
   ]
     .map((value) => `<span>${value}</span>`)
-    .join('');
+    .join("");
 }
 
 function renderFilterOptions() {
   const options = {
     type: uniqueSorted(state.index.map((d) => d.type)),
-    annotation_type: uniqueSorted([...state.details.values()].map((d) => d.annotation_type)),
+    annotation_type: uniqueSorted(
+      [...state.details.values()].map((d) => d.annotation_type),
+    ),
     modality: uniqueSorted([...state.details.values()].map((d) => d.modality)),
     license: uniqueSorted([...state.details.values()].map((d) => d.license)),
-    media: uniqueSorted([...state.details.values()].map((d) => inferMedia(d.modality))),
-    year: uniqueSorted(state.index.map((d) => String(d.year))).sort((a, b) => Number(b) - Number(a))
+    media: uniqueSorted(
+      [...state.details.values()].map((d) => inferMedia(d.modality)),
+    ),
+    year: uniqueSorted(state.index.map((d) => String(d.year))).sort(
+      (a, b) => Number(b) - Number(a),
+    ),
   };
   filterController.render(options);
 }
@@ -289,20 +397,25 @@ function observeInfiniteScroll() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && state.visibleCount < state.filtered.length) {
+        if (
+          entry.isIntersecting &&
+          state.visibleCount < state.filtered.length
+        ) {
           state.visibleCount += 12;
           renderGrid();
         }
       });
     },
-    { rootMargin: '400px 0px' }
+    { rootMargin: "400px 0px" },
   );
   observer.observe(els.sentinel);
 }
 
 function loadFavorites() {
   try {
-    return new Set(JSON.parse(localStorage.getItem('visionvault:favorites') || '[]'));
+    return new Set(
+      JSON.parse(localStorage.getItem("visionvault:favorites") || "[]"),
+    );
   } catch {
     return new Set();
   }
@@ -314,11 +427,16 @@ function toggleFavorite(id) {
   } else {
     state.favorites.add(id);
   }
-  localStorage.setItem('visionvault:favorites', JSON.stringify([...state.favorites]));
+  localStorage.setItem(
+    "visionvault:favorites",
+    JSON.stringify([...state.favorites]),
+  );
 }
 
 async function ensureAllDetails() {
-  const pendingIds = state.index.map((dataset) => dataset.id).filter((id) => !state.details.has(id));
+  const pendingIds = state.index
+    .map((dataset) => dataset.id)
+    .filter((id) => !state.details.has(id));
   await Promise.all(pendingIds.map((id) => getDatasetDetail(id)));
 }
 
@@ -330,7 +448,7 @@ function scheduleDetailHydration() {
     });
   };
 
-  if ('requestIdleCallback' in window) {
+  if ("requestIdleCallback" in window) {
     window.requestIdleCallback(hydrate, { timeout: 2500 });
   } else {
     setTimeout(hydrate, 1200);
@@ -347,7 +465,7 @@ async function getDatasetDetail(id) {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url, { cache: 'no-store' });
+  const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
@@ -355,24 +473,26 @@ async function fetchJson(url) {
 }
 
 function numberLabel(value) {
-  if (!Number.isFinite(value)) return '—';
-  return new Intl.NumberFormat('en-US').format(value);
+  if (!Number.isFinite(value)) return "—";
+  return new Intl.NumberFormat("en-US").format(value);
 }
 
-function inferMedia(modality = '') {
+function inferMedia(modality = "") {
   const lowered = modality.toLowerCase();
-  if (lowered.includes('video')) return 'Video';
-  if (lowered.includes('image')) return 'Image';
-  return 'Mixed';
+  if (lowered.includes("video")) return "Video";
+  if (lowered.includes("image")) return "Image";
+  return "Mixed";
 }
 
 function uniqueSorted(items) {
-  return [...new Set(items.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b)));
+  return [...new Set(items.filter(Boolean))].sort((a, b) =>
+    String(a).localeCompare(String(b)),
+  );
 }
 
 function initParticleField() {
-  const canvas = document.querySelector('#particle-canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.querySelector("#particle-canvas");
+  const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   const particles = [];
@@ -384,7 +504,7 @@ function initParticleField() {
   };
 
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener("resize", resize);
 
   for (let i = 0; i < count; i += 1) {
     particles.push({
@@ -392,7 +512,7 @@ function initParticleField() {
       y: Math.random() * canvas.height,
       radius: Math.random() * 1.7 + 0.2,
       speedX: (Math.random() - 0.5) * 0.18,
-      speedY: (Math.random() - 0.5) * 0.18
+      speedY: (Math.random() - 0.5) * 0.18,
     });
   }
 
@@ -404,7 +524,7 @@ function initParticleField() {
       if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
       if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
       ctx.beginPath();
-      ctx.fillStyle = 'rgba(61, 232, 255, 0.6)';
+      ctx.fillStyle = "rgba(61, 232, 255, 0.6)";
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fill();
     });
