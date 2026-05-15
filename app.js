@@ -437,7 +437,17 @@ async function ensureAllDetails() {
   const pendingIds = state.index
     .map((dataset) => dataset.id)
     .filter((id) => !state.details.has(id));
-  await Promise.all(pendingIds.map((id) => getDatasetDetail(id)));
+  const results = await Promise.allSettled(
+    pendingIds.map((id) => getDatasetDetail(id)),
+  );
+  results.forEach((result, index) => {
+    if (result.status === "rejected") {
+      console.warn(
+        `Skipping dataset detail hydration for "${pendingIds[index]}"`,
+        result.reason,
+      );
+    }
+  });
 }
 
 function scheduleDetailHydration() {
