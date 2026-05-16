@@ -1,0 +1,23 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-waves" x1="76" y1="42" x2="730" y2="398" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F8FF"/>
+      <stop offset="1" stop-color="#E5EDFA"/>
+    </linearGradient>
+    <linearGradient id="wave-a" x1="76" y1="214" x2="724" y2="214" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3569DF"/>
+      <stop offset="1" stop-color="#0C8EA7"/>
+    </linearGradient>
+    <linearGradient id="wave-b" x1="76" y1="268" x2="724" y2="268" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9154D9"/>
+      <stop offset="1" stop-color="#3569DF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="32" fill="url(#bg-waves)"/>
+  <path d="M74 182C146 128 228 110 318 148C408 186 488 220 572 194C626 178 678 148 726 126" stroke="url(#wave-a)" stroke-width="24" stroke-linecap="round"/>
+  <path d="M74 262C158 218 246 214 330 260C414 306 506 322 590 284C642 260 688 230 726 214" stroke="url(#wave-b)" stroke-width="24" stroke-linecap="round"/>
+  <path d="M74 334C152 294 232 292 316 330C400 368 494 378 586 344C640 324 688 296 726 278" stroke="#7CB0FF" stroke-width="18" stroke-linecap="round" stroke-opacity=".9"/>
+  <circle cx="188" cy="132" r="32" fill="#9154D9" fill-opacity=".22"/>
+  <circle cx="616" cy="100" r="44" fill="#3569DF" fill-opacity=".18"/>
+  <circle cx="540" cy="338" r="24" fill="#0C8EA7" fill-opacity=".26"/>
+</svg>

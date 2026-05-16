@@ -25,8 +25,10 @@ export function createModalController({ dialog, body, closeSelectors = [] }) {
     if (event.key === 'Escape' && dialog.open) close();
   });
 
-  function open(dataset, isFavorite) {
+  function open(dataset, isFavorite, preview = {}) {
     body.innerHTML = '';
+    const imageSrc = preview.imageSrc || dataset.thumbnail || '';
+    const fallbackImageSrc = preview.fallbackImageSrc || imageSrc;
 
     const stats = DETAIL_FIELDS.map(
       ([key, label]) => `<div class="modal-stat"><span>${label}</span><strong>${dataset[key] ?? '—'}</strong></div>`
@@ -43,7 +45,7 @@ export function createModalController({ dialog, body, closeSelectors = [] }) {
 
     body.innerHTML = `
       <section class="modal-head">
-        <img src="${dataset.thumbnail}" alt="${dataset.title}" loading="lazy" />
+        <img src="${imageSrc}" alt="${dataset.title}" loading="lazy" />
         <div class="modal-head__info">
           <h2>${dataset.title}</h2>
           <p>${dataset.description || ''}</p>
@@ -67,6 +69,12 @@ export function createModalController({ dialog, body, closeSelectors = [] }) {
         <pre class="json-preview">${escapeHtml(JSON.stringify(dataset, null, 2))}</pre>
       </section>
     `;
+
+    const image = body.querySelector('.modal-head img');
+    image?.addEventListener('error', () => {
+      if (image.src.endsWith(fallbackImageSrc)) return;
+      image.src = fallbackImageSrc;
+    });
 
     if (!dialog.open) {
       dialog.showModal();
