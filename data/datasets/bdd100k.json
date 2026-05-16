@@ -1,0 +1,32 @@
+{
+  "id": "bdd100k",
+  "title": "BDD100K",
+  "author": "Berkeley AI Research",
+  "year": 2020,
+  "type": "Autonomous Driving",
+  "annotation_type": "Bounding Box + Segmentation + Tracking",
+  "modality": "Image + Video",
+  "classes": 40,
+  "samples": 100000,
+  "size": "1.8TB",
+  "license": "CC BY-NC-SA 4.0",
+  "formats": [
+    "JPEG",
+    "JSON",
+    "MP4"
+  ],
+  "tags": [
+    "autonomous driving",
+    "multi-task",
+    "video"
+  ],
+  "description": "Large driving dataset spanning detection, segmentation, tracking, and lane marking tasks.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1805.04687",
+  "github": "https://github.com/bdd100k/bdd100k",
+  "website": "https://bdd-data.berkeley.edu/",
+  "citation": "Yu et al., BDD100K: A Diverse Driving Dataset for Heterogeneous Multitask Learning, CVPR 2020.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

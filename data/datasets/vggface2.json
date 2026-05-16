@@ -1,0 +1,30 @@
+{
+  "id": "vggface2",
+  "title": "VGGFace2",
+  "author": "University of Oxford",
+  "year": 2018,
+  "type": "Face Recognition",
+  "annotation_type": "Identity Label",
+  "modality": "Image",
+  "classes": 9131,
+  "samples": 3310000,
+  "size": "125GB",
+  "license": "Custom Research License",
+  "formats": [
+    "JPEG"
+  ],
+  "tags": [
+    "face",
+    "recognition",
+    "classification"
+  ],
+  "description": "Large-scale face dataset with high variation in age, pose, and ethnicity.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1710.08092",
+  "github": "https://github.com/ox-vgg/vgg_face2",
+  "website": "https://www.robots.ox.ac.uk/~vgg/data/vgg_face2/",
+  "citation": "Cao et al., VGGFace2: A Dataset for Recognising Faces Across Pose and Age, FG 2018.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

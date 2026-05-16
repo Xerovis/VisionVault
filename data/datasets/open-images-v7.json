@@ -1,0 +1,31 @@
+{
+  "id": "open-images-v7",
+  "title": "Open Images V7",
+  "author": "Google",
+  "year": 2022,
+  "type": "Object Detection",
+  "annotation_type": "Bounding Box + Segmentation + Classification",
+  "modality": "Image",
+  "classes": 19889,
+  "samples": 9000000,
+  "size": "561GB",
+  "license": "CC BY 4.0",
+  "formats": [
+    "JPEG",
+    "CSV"
+  ],
+  "tags": [
+    "detection",
+    "segmentation",
+    "large-scale"
+  ],
+  "description": "Large-scale dataset with image-level labels, boxes, masks, and visual relationships.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1811.00982",
+  "github": "https://github.com/openimages",
+  "website": "https://storage.googleapis.com/openimages/web/index.html",
+  "citation": "Kuznetsova et al., The Open Images Dataset V4, IJCV 2020.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

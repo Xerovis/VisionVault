@@ -1,0 +1,31 @@
+{
+  "id": "nyu-depth-v2",
+  "title": "NYU Depth V2",
+  "author": "NYU",
+  "year": 2012,
+  "type": "Depth Estimation",
+  "annotation_type": "Depth Map + Segmentation",
+  "modality": "RGB-D Image",
+  "classes": 40,
+  "samples": 1449,
+  "size": "428GB",
+  "license": "Custom Research License",
+  "formats": [
+    "MAT",
+    "PNG"
+  ],
+  "tags": [
+    "depth",
+    "indoor",
+    "segmentation"
+  ],
+  "description": "Foundational RGB-D benchmark for indoor depth estimation and semantic segmentation.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://cs.nyu.edu/~fergus/papers/nyu_depth_v2.pdf",
+  "github": "",
+  "website": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+  "citation": "Silberman et al., Indoor Segmentation and Support Inference from RGBD Images, ECCV 2012.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

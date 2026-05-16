@@ -4,7 +4,11 @@
     "title": "COCO 2017",
     "type": "Object Detection",
     "year": 2017,
-    "tags": ["detection", "segmentation", "benchmark"],
+    "tags": [
+      "detection",
+      "segmentation",
+      "benchmark"
+    ],
     "thumbnail": "assets/images/coco.svg",
     "author": "Microsoft",
     "short_description": "Large-scale benchmark for detection, segmentation, and captioning research."
@@ -14,7 +18,11 @@
     "title": "ImageNet 1K",
     "type": "Classification",
     "year": 2012,
-    "tags": ["classification", "pretraining", "benchmark"],
+    "tags": [
+      "classification",
+      "pretraining",
+      "benchmark"
+    ],
     "thumbnail": "assets/images/imagenet.svg",
     "author": "ImageNet Team",
     "short_description": "Canonical large-scale image classification dataset powering modern representation learning."
@@ -24,7 +32,11 @@
     "title": "Cityscapes",
     "type": "Segmentation",
     "year": 2016,
-    "tags": ["autonomous driving", "urban", "segmentation"],
+    "tags": [
+      "autonomous driving",
+      "urban",
+      "segmentation"
+    ],
     "thumbnail": "assets/images/cityscapes.svg",
     "author": "Daimler AG + MPII",
     "short_description": "Fine-grained street-scene annotations for semantic understanding in autonomous driving."
@@ -34,7 +46,11 @@
     "title": "LVIS v1",
     "type": "Instance Segmentation",
     "year": 2020,
-    "tags": ["long-tail", "instance segmentation", "detection"],
+    "tags": [
+      "long-tail",
+      "instance segmentation",
+      "detection"
+    ],
     "thumbnail": "assets/images/lvis.svg",
     "author": "FAIR",
     "short_description": "Long-tail object categories designed to stress-test recognition of rare classes."
@@ -44,7 +60,11 @@
     "title": "KITTI Vision Benchmark",
     "type": "Autonomous Driving",
     "year": 2013,
-    "tags": ["stereo", "tracking", "3d"],
+    "tags": [
+      "stereo",
+      "tracking",
+      "3d"
+    ],
     "thumbnail": "assets/images/kitti.svg",
     "author": "KIT + TTI",
     "short_description": "Classic benchmark suite for 3D detection, optical flow, and autonomous driving perception."
@@ -54,7 +74,11 @@
     "title": "Ego4D",
     "type": "Video Understanding",
     "year": 2022,
-    "tags": ["video", "egocentric", "multimodal"],
+    "tags": [
+      "video",
+      "egocentric",
+      "multimodal"
+    ],
     "thumbnail": "assets/images/ego4d.svg",
     "author": "Meta AI",
     "short_description": "Massive egocentric video collection for multimodal understanding and embodied AI."
@@ -64,9 +88,223 @@
     "title": "CIFAR-10",
     "type": "Image classification",
     "year": 2009,
-    "tags": ["image", "classification", "benchmark"],
+    "tags": [
+      "image",
+      "classification",
+      "benchmark"
+    ],
     "thumbnail": "",
     "author": "MIT and NYU",
     "short_description": "A well-known image classification dataset, 10 classes, 32 x 32 pixel images."
+  },
+  {
+    "id": "pascal-voc-2012",
+    "title": "PASCAL VOC 2012",
+    "type": "Object Detection",
+    "year": 2012,
+    "tags": [
+      "detection",
+      "segmentation",
+      "benchmark"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "University of Oxford",
+    "short_description": "Classic benchmark for detection and segmentation with curated object categories."
+  },
+  {
+    "id": "open-images-v7",
+    "title": "Open Images V7",
+    "type": "Object Detection",
+    "year": 2022,
+    "tags": [
+      "detection",
+      "segmentation",
+      "large-scale"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Google",
+    "short_description": "Large-scale open benchmark with labels, boxes, masks, and relationships."
+  },
+  {
+    "id": "ade20k",
+    "title": "ADE20K",
+    "type": "Scene Parsing",
+    "year": 2017,
+    "tags": [
+      "segmentation",
+      "scene understanding",
+      "benchmark"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "MIT CSAIL",
+    "short_description": "Dense scene parsing benchmark for semantic segmentation research."
+  },
+  {
+    "id": "bdd100k",
+    "title": "BDD100K",
+    "type": "Autonomous Driving",
+    "year": 2020,
+    "tags": [
+      "autonomous driving",
+      "multi-task",
+      "video"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Berkeley AI Research",
+    "short_description": "Diverse driving benchmark for detection, segmentation, tracking, and lanes."
+  },
+  {
+    "id": "nuscenes",
+    "title": "nuScenes",
+    "type": "Autonomous Driving",
+    "year": 2019,
+    "tags": [
+      "3d detection",
+      "autonomous driving",
+      "sensor fusion"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Motional",
+    "short_description": "Sensor-fusion benchmark for 3D perception in urban driving scenes."
+  },
+  {
+    "id": "waymo-open",
+    "title": "Waymo Open Dataset",
+    "type": "Autonomous Driving",
+    "year": 2020,
+    "tags": [
+      "3d detection",
+      "tracking",
+      "autonomous driving"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Waymo",
+    "short_description": "Massive benchmark for 3D detection and tracking with LiDAR-camera data."
+  },
+  {
+    "id": "mapillary-vistas",
+    "title": "Mapillary Vistas",
+    "type": "Segmentation",
+    "year": 2017,
+    "tags": [
+      "street scenes",
+      "segmentation",
+      "autonomous driving"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Mapillary",
+    "short_description": "Fine-grained global street-scene segmentation dataset."
+  },
+  {
+    "id": "sun-rgbd",
+    "title": "SUN RGB-D",
+    "type": "Indoor Scene Understanding",
+    "year": 2015,
+    "tags": [
+      "rgb-d",
+      "indoor",
+      "scene understanding"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "Princeton + MIT + TUM",
+    "short_description": "RGB-D indoor benchmark for object and scene-level perception."
+  },
+  {
+    "id": "nyu-depth-v2",
+    "title": "NYU Depth V2",
+    "type": "Depth Estimation",
+    "year": 2012,
+    "tags": [
+      "depth",
+      "indoor",
+      "segmentation"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "NYU",
+    "short_description": "Foundational indoor RGB-D dataset for depth and semantic perception."
+  },
+  {
+    "id": "davis-2017",
+    "title": "DAVIS 2017",
+    "type": "Video Object Segmentation",
+    "year": 2017,
+    "tags": [
+      "video",
+      "segmentation",
+      "tracking"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "ETH Zurich + University of Bern",
+    "short_description": "Reference benchmark for video object segmentation evaluation."
+  },
+  {
+    "id": "youtube-vis-2021",
+    "title": "YouTube-VIS 2021",
+    "type": "Video Instance Segmentation",
+    "year": 2021,
+    "tags": [
+      "video",
+      "instance segmentation",
+      "tracking"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "YouTube-VIS Team",
+    "short_description": "Large-scale video instance segmentation and temporal tracking benchmark."
+  },
+  {
+    "id": "kinetics-700",
+    "title": "Kinetics-700",
+    "type": "Action Recognition",
+    "year": 2020,
+    "tags": [
+      "video",
+      "action recognition",
+      "benchmark"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "DeepMind",
+    "short_description": "Large-scale action recognition dataset for video understanding."
+  },
+  {
+    "id": "ucf101",
+    "title": "UCF101",
+    "type": "Action Recognition",
+    "year": 2012,
+    "tags": [
+      "video",
+      "action recognition",
+      "benchmark"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "University of Central Florida",
+    "short_description": "Classic wild-video benchmark for human action classification."
+  },
+  {
+    "id": "vggface2",
+    "title": "VGGFace2",
+    "type": "Face Recognition",
+    "year": 2018,
+    "tags": [
+      "face",
+      "recognition",
+      "classification"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "University of Oxford",
+    "short_description": "Large face-recognition dataset with strong age/pose diversity."
+  },
+  {
+    "id": "laion-400m",
+    "title": "LAION-400M",
+    "type": "Vision-Language",
+    "year": 2022,
+    "tags": [
+      "vision-language",
+      "pretraining",
+      "web-scale"
+    ],
+    "thumbnail": "assets/images/fallback.svg",
+    "author": "LAION",
+    "short_description": "Web-scale image-text corpus for multimodal pretraining."
   }
 ]

@@ -1,0 +1,31 @@
+{
+  "id": "davis-2017",
+  "title": "DAVIS 2017",
+  "author": "ETH Zurich + University of Bern",
+  "year": 2017,
+  "type": "Video Object Segmentation",
+  "annotation_type": "Instance Segmentation",
+  "modality": "Video",
+  "classes": 376,
+  "samples": 10459,
+  "size": "15GB",
+  "license": "Custom Research License",
+  "formats": [
+    "JPEG",
+    "PNG"
+  ],
+  "tags": [
+    "video",
+    "segmentation",
+    "tracking"
+  ],
+  "description": "Popular benchmark for semi-supervised and unsupervised video object segmentation.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1704.00675",
+  "github": "https://github.com/davisvideochallenge/davis-2017",
+  "website": "https://davischallenge.org/",
+  "citation": "Pont-Tuset et al., The 2017 DAVIS Challenge on Video Object Segmentation, arXiv 2017.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

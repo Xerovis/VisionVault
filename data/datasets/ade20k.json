@@ -1,0 +1,31 @@
+{
+  "id": "ade20k",
+  "title": "ADE20K",
+  "author": "MIT CSAIL",
+  "year": 2017,
+  "type": "Scene Parsing",
+  "annotation_type": "Semantic Segmentation",
+  "modality": "Image",
+  "classes": 150,
+  "samples": 25000,
+  "size": "2.6GB",
+  "license": "Custom Research License",
+  "formats": [
+    "JPEG",
+    "PNG"
+  ],
+  "tags": [
+    "segmentation",
+    "scene understanding",
+    "benchmark"
+  ],
+  "description": "Widely used scene parsing dataset with dense semantic annotations.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1608.05442",
+  "github": "https://github.com/CSAILVision/semantic-segmentation-pytorch",
+  "website": "https://groups.csail.mit.edu/vision/datasets/ADE20K/",
+  "citation": "Zhou et al., Scene Parsing through ADE20K Dataset, CVPR 2017.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

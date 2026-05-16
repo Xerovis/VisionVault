@@ -120,10 +120,26 @@
           <p id="result-count" aria-live="polite"></p>
         </div>
         <div id="dataset-grid" class="dataset-grid" aria-live="polite"></div>
+        <div id="pagination-controls" class="pagination hidden" aria-live="polite">
+          <button id="prev-page" class="chip chip--muted" type="button">
+            Previous
+          </button>
+          <span id="page-indicator" class="pagination__indicator"></span>
+          <label class="pagination__size">
+            Per page
+            <select id="page-size-select">
+              <option value="12" selected>12</option>
+              <option value="24">24</option>
+              <option value="48">48</option>
+            </select>
+          </label>
+          <button id="next-page" class="chip chip--muted" type="button">
+            Next
+          </button>
+        </div>
         <p id="empty-state" class="empty-state hidden">
           No datasets match your current search and filters.
         </p>
-        <div id="scroll-sentinel" aria-hidden="true"></div>
       </section>
     </main>
 

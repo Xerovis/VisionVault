@@ -1,0 +1,31 @@
+{
+  "id": "youtube-vis-2021",
+  "title": "YouTube-VIS 2021",
+  "author": "YouTube-VIS Team",
+  "year": 2021,
+  "type": "Video Instance Segmentation",
+  "annotation_type": "Instance Segmentation + Tracking",
+  "modality": "Video",
+  "classes": 40,
+  "samples": 2883,
+  "size": "64GB",
+  "license": "Custom Research License",
+  "formats": [
+    "JPEG",
+    "JSON"
+  ],
+  "tags": [
+    "video",
+    "instance segmentation",
+    "tracking"
+  ],
+  "description": "Large-scale benchmark for video instance segmentation and tracking consistency.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/2102.04973",
+  "github": "https://github.com/youtubevos/YouTubeVIS",
+  "website": "https://youtube-vos.org/dataset/vis/",
+  "citation": "Yang et al., 2021 Version of YouTube-VIS and a Large-Scale Benchmark, arXiv 2021.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

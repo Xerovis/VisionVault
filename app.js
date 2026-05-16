@@ -6,7 +6,8 @@ const state = {
   index: [],
   details: new Map(),
   filtered: [],
-  visibleCount: 12,
+  currentPage: 1,
+  pageSize: 12,
   query: "",
   sort: "recentlyAdded",
   favoritesOnly: false,
@@ -44,8 +45,12 @@ const els = {
   resultCount: document.querySelector("#result-count"),
   emptyState: document.querySelector("#empty-state"),
   stats: document.querySelector("#hero-stats"),
-  sentinel: document.querySelector("#scroll-sentinel"),
   favoritesToggle: document.querySelector("#favorites-toggle"),
+  paginationControls: document.querySelector("#pagination-controls"),
+  prevPage: document.querySelector("#prev-page"),
+  nextPage: document.querySelector("#next-page"),
+  pageIndicator: document.querySelector("#page-indicator"),
+  pageSize: document.querySelector("#page-size-select"),
   modal: document.querySelector("#dataset-modal"),
   modalBody: document.querySelector("#modal-body"),
 };
@@ -89,7 +94,6 @@ async function bootstrap() {
   renderSortOptions();
   applyAndRender();
   wireInteractions();
-  observeInfiniteScroll();
   initParticleField();
   scheduleDetailHydration();
 }
@@ -159,6 +163,28 @@ function wireInteractions() {
     );
     applyAndRender();
   });
+
+  els.prevPage.addEventListener("click", () => {
+    if (state.currentPage <= 1) return;
+    state.currentPage -= 1;
+    applyAndRender({ preservePage: true });
+  });
+
+  els.nextPage.addEventListener("click", () => {
+    const totalPages = Math.max(
+      1,
+      Math.ceil(state.filtered.length / state.pageSize),
+    );
+    if (state.currentPage >= totalPages) return;
+    state.currentPage += 1;
+    applyAndRender({ preservePage: true });
+  });
+
+  els.pageSize.addEventListener("change", () => {
+    state.pageSize = Number(els.pageSize.value) || 12;
+    state.currentPage = 1;
+    applyAndRender({ preservePage: true });
+  });
 }
 
 function renderSortOptions() {
@@ -193,7 +219,7 @@ function updateSortSelection() {
   });
 }
 
-function applyAndRender() {
+function applyAndRender({ preservePage = false } = {}) {
   const query = state.query.trim().toLowerCase();
   const byQuery = state.index.filter((dataset) => {
     const detail = state.details.get(dataset.id) || {};
@@ -221,10 +247,10 @@ function applyAndRender() {
     : byFilters;
 
   state.filtered = sortDatasets(byFavorites, state.sort);
-  state.visibleCount = Math.max(
-    12,
-    Math.min(state.visibleCount, state.filtered.length || 12),
-  );
+  const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.pageSize));
+  state.currentPage = preservePage
+    ? Math.min(Math.max(1, state.currentPage), totalPages)
+    : 1;
 
   const suggestionSource = new Set();
   state.index.forEach((dataset) => {
@@ -303,7 +329,9 @@ function sortDatasets(list, mode) {
 
 function renderGrid() {
   els.grid.innerHTML = "";
-  const visible = state.filtered.slice(0, state.visibleCount);
+  const start = (state.currentPage - 1) * state.pageSize;
+  const end = start + state.pageSize;
+  const visible = state.filtered.slice(start, end);
 
   visible.forEach((dataset) => {
     const detail = state.details.get(dataset.id);
@@ -356,6 +384,7 @@ function renderGrid() {
 
   els.resultCount.textContent = `${state.filtered.length} result${state.filtered.length === 1 ? "" : "s"} shown`;
   els.emptyState.classList.toggle("hidden", state.filtered.length !== 0);
+  renderPagination();
 }
 
 async function openDatasetModal(id) {
@@ -393,22 +422,17 @@ function renderFilterOptions() {
   filterController.render(options);
 }
 
-function observeInfiniteScroll() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (
-          entry.isIntersecting &&
-          state.visibleCount < state.filtered.length
-        ) {
-          state.visibleCount += 12;
-          renderGrid();
-        }
-      });
-    },
-    { rootMargin: "400px 0px" },
-  );
-  observer.observe(els.sentinel);
+function renderPagination() {
+  const totalResults = state.filtered.length;
+  const totalPages = Math.max(1, Math.ceil(totalResults / state.pageSize));
+  const hasResults = totalResults > 0;
+
+  els.paginationControls.classList.toggle("hidden", !hasResults);
+  if (!hasResults) return;
+
+  els.pageIndicator.textContent = `Page ${state.currentPage} of ${totalPages}`;
+  els.prevPage.disabled = state.currentPage <= 1;
+  els.nextPage.disabled = state.currentPage >= totalPages;
 }
 
 function loadFavorites() {
