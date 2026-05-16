@@ -68,5 +68,15 @@
     "thumbnail": "",
     "author": "MIT and NYU",
     "short_description": "A well-known image classification dataset, 10 classes, 32 x 32 pixel images."
+  },
+  {
+  "id": "mnist",
+  "title": "MNIST Handwritten Digits",
+  "type": "Image Classification",
+  "year": 1998,
+  "tags": ["digits", "handwriting", "classification", "beginner", "benchmark"],
+  "thumbnail": "assets/images/mnist.svg",
+  "author": "Yann LeCun et al.",
+  "short_description": "Classic dataset of handwritten digits used for image classification benchmarks."
   }
 ]
