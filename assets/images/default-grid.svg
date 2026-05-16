@@ -1,0 +1,28 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-grid" x1="36" y1="18" x2="760" y2="424" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FAFF"/>
+      <stop offset="1" stop-color="#E7ECFB"/>
+    </linearGradient>
+    <linearGradient id="panel-grid" x1="136" y1="108" x2="664" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3569DF"/>
+      <stop offset="1" stop-color="#0C8EA7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="32" fill="url(#bg-grid)"/>
+  <g opacity=".42" stroke="#90A8DB">
+    <path d="M120 54V396"/>
+    <path d="M248 54V396"/>
+    <path d="M376 54V396"/>
+    <path d="M504 54V396"/>
+    <path d="M632 54V396"/>
+    <path d="M88 118H712"/>
+    <path d="M88 210H712"/>
+    <path d="M88 302H712"/>
+  </g>
+  <rect x="148" y="120" width="206" height="128" rx="20" fill="url(#panel-grid)"/>
+  <rect x="386" y="150" width="128" height="178" rx="20" fill="#9154D9" fill-opacity=".84"/>
+  <rect x="542" y="102" width="110" height="110" rx="20" fill="#7CB0FF" fill-opacity=".85"/>
+  <circle cx="604" cy="302" r="46" fill="#0C8EA7" fill-opacity=".82"/>
+  <circle cx="318" cy="312" r="30" fill="#3569DF" fill-opacity=".82"/>
+</svg>

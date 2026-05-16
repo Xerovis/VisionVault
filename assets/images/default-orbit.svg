@@ -1,0 +1,20 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-orbit" x1="84" y1="32" x2="746" y2="422" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F9FF"/>
+      <stop offset="1" stop-color="#E2EAFE"/>
+    </linearGradient>
+    <linearGradient id="ring-orbit" x1="220" y1="92" x2="620" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3569DF"/>
+      <stop offset="1" stop-color="#8F57DA"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="32" fill="url(#bg-orbit)"/>
+  <circle cx="588" cy="92" r="132" fill="#DCE6FF" fill-opacity=".6"/>
+  <circle cx="176" cy="344" r="148" fill="#E9DEFF" fill-opacity=".72"/>
+  <ellipse cx="400" cy="225" rx="248" ry="96" stroke="url(#ring-orbit)" stroke-width="18"/>
+  <ellipse cx="400" cy="225" rx="180" ry="54" stroke="#7CB0FF" stroke-opacity=".54" stroke-width="10"/>
+  <circle cx="226" cy="250" r="20" fill="#3569DF"/>
+  <circle cx="548" cy="188" r="14" fill="#0C8EA7"/>
+  <circle cx="612" cy="270" r="24" fill="#9154D9" fill-opacity=".88"/>
+</svg>
