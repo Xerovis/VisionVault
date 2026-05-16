@@ -1,0 +1,30 @@
+{
+  "id": "waymo-open",
+  "title": "Waymo Open Dataset",
+  "author": "Waymo",
+  "year": 2020,
+  "type": "Autonomous Driving",
+  "annotation_type": "3D Bounding Box + Tracking",
+  "modality": "Image + LiDAR",
+  "classes": 4,
+  "samples": 12000000,
+  "size": "12TB",
+  "license": "Waymo Open Dataset License",
+  "formats": [
+    "TFRecord"
+  ],
+  "tags": [
+    "3d detection",
+    "tracking",
+    "autonomous driving"
+  ],
+  "description": "Large-scale autonomous driving benchmark for 3D detection, tracking, and motion prediction.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1912.04838",
+  "github": "https://github.com/waymo-research/waymo-open-dataset",
+  "website": "https://waymo.com/open/",
+  "citation": "Sun et al., Scalability in Perception for Autonomous Driving, CVPR 2020.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "pascal-voc-2012",
+  "title": "PASCAL VOC 2012",
+  "author": "University of Oxford",
+  "year": 2012,
+  "type": "Object Detection",
+  "annotation_type": "Bounding Box + Segmentation",
+  "modality": "Image",
+  "classes": 20,
+  "samples": 11540,
+  "size": "2GB",
+  "license": "Custom Research License",
+  "formats": [
+    "JPEG",
+    "XML"
+  ],
+  "tags": [
+    "detection",
+    "segmentation",
+    "benchmark"
+  ],
+  "description": "Classic benchmark for object detection and semantic segmentation tasks.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "http://host.robots.ox.ac.uk/pascal/VOC/",
+  "github": "",
+  "website": "http://host.robots.ox.ac.uk/pascal/VOC/voc2012/",
+  "citation": "Everingham et al., The PASCAL Visual Object Classes Challenge, IJCV 2010.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "laion-400m",
+  "title": "LAION-400M",
+  "author": "LAION",
+  "year": 2022,
+  "type": "Vision-Language",
+  "annotation_type": "Caption",
+  "modality": "Image + Text",
+  "classes": 0,
+  "samples": 400000000,
+  "size": "240TB",
+  "license": "Mixed (by source)",
+  "formats": [
+    "Parquet",
+    "URL Metadata"
+  ],
+  "tags": [
+    "vision-language",
+    "pretraining",
+    "web-scale"
+  ],
+  "description": "Web-scale image-text dataset used for multimodal representation and generative model pretraining.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/2111.02114",
+  "github": "https://github.com/LAION-AI/laion5B-en",
+  "website": "https://laion.ai/blog/laion-400-open-dataset/",
+  "citation": "Schuhmann et al., LAION-400M: Open Dataset of CLIP-Filtered 400 Million Image-Text Pairs, arXiv 2021.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

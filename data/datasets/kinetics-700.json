@@ -1,0 +1,31 @@
+{
+  "id": "kinetics-700",
+  "title": "Kinetics-700",
+  "author": "DeepMind",
+  "year": 2020,
+  "type": "Action Recognition",
+  "annotation_type": "Class Label",
+  "modality": "Video",
+  "classes": 700,
+  "samples": 650000,
+  "size": "650GB",
+  "license": "Custom Research License",
+  "formats": [
+    "MP4",
+    "CSV"
+  ],
+  "tags": [
+    "video",
+    "action recognition",
+    "benchmark"
+  ],
+  "description": "Large-scale human action recognition benchmark collected from YouTube videos.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1705.06950",
+  "github": "",
+  "website": "https://deepmind.com/research/open-source/kinetics",
+  "citation": "Carreira et al., A Short Note about Kinetics-600, arXiv 2018.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

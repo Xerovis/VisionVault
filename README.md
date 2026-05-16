@@ -10,7 +10,7 @@ It is designed for long-term scalability where thousands of datasets and many co
 - Real-time search with live suggestions
 - Multi-select filter chips
 - Multiple sort modes (year, title, samples, size, recently added)
-- Lazy card rendering for large archives
+- Pagination with configurable page size
 - Deferred dataset-detail loading
 - Dataset details modal with JSON preview, metadata stats, citation, and links
 - Favorites system backed by `localStorage`
@@ -60,9 +60,8 @@ VisionVault/
 │       ├── coco-2017.json
 │       ├── imagenet-1k.json
 │       ├── cityscapes.json
-│       ├── lvis-v1.json
-│       ├── kitti.json
-│       └── ego4d.json
+│       ├── ...
+│       └── laion-400m.json
 ├── assets/
 │   ├── images/
 │   └── icons/
@@ -121,7 +120,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
 - Dataset comparison mode
 - Contributor leaderboard
 - Advanced faceted indexing API
-- Pagination + virtualized rendering for ultra-large archives
+- Virtualized rendering for ultra-large archives
 - Dark/light adaptive themes
 - PWA offline cache mode
 

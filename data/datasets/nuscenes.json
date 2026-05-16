@@ -1,0 +1,31 @@
+{
+  "id": "nuscenes",
+  "title": "nuScenes",
+  "author": "Motional",
+  "year": 2019,
+  "type": "Autonomous Driving",
+  "annotation_type": "3D Bounding Box",
+  "modality": "Image + LiDAR + Radar",
+  "classes": 23,
+  "samples": 1400000,
+  "size": "1.4TB",
+  "license": "nuScenes Terms of Use",
+  "formats": [
+    "JSON",
+    "Binary"
+  ],
+  "tags": [
+    "3d detection",
+    "autonomous driving",
+    "sensor fusion"
+  ],
+  "description": "Multimodal autonomous driving dataset with full sensor suite and 3D annotations.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1903.11027",
+  "github": "https://github.com/nutonomy/nuscenes-devkit",
+  "website": "https://www.nuscenes.org/",
+  "citation": "Caesar et al., nuScenes: A multimodal dataset for autonomous driving, CVPR 2020.",
+  "featured": true,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

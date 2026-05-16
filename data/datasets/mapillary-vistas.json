@@ -1,0 +1,31 @@
+{
+  "id": "mapillary-vistas",
+  "title": "Mapillary Vistas",
+  "author": "Mapillary",
+  "year": 2017,
+  "type": "Segmentation",
+  "annotation_type": "Instance + Semantic Segmentation",
+  "modality": "Image",
+  "classes": 124,
+  "samples": 25000,
+  "size": "37GB",
+  "license": "CC BY-NC-SA 4.0",
+  "formats": [
+    "JPEG",
+    "PNG"
+  ],
+  "tags": [
+    "street scenes",
+    "segmentation",
+    "autonomous driving"
+  ],
+  "description": "Street-level imagery with fine-grained semantic and instance segmentation labels.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1807.10273",
+  "github": "",
+  "website": "https://www.mapillary.com/dataset/vistas",
+  "citation": "Neuhold et al., The Mapillary Vistas Dataset for Semantic Understanding of Street Scenes, ICCV 2017.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}

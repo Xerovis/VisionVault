@@ -1,0 +1,31 @@
+{
+  "id": "sun-rgbd",
+  "title": "SUN RGB-D",
+  "author": "Princeton + MIT + TUM",
+  "year": 2015,
+  "type": "Indoor Scene Understanding",
+  "annotation_type": "2D/3D Bounding Box + Segmentation",
+  "modality": "RGB-D Image",
+  "classes": 800,
+  "samples": 10335,
+  "size": "10GB",
+  "license": "Custom Research License",
+  "formats": [
+    "MAT",
+    "JPEG"
+  ],
+  "tags": [
+    "rgb-d",
+    "indoor",
+    "scene understanding"
+  ],
+  "description": "Benchmark for indoor scene understanding with RGB-D images and 3D object labels.",
+  "thumbnail": "assets/images/fallback.svg",
+  "paper": "https://arxiv.org/abs/1412.4766",
+  "github": "",
+  "website": "https://rgbd.cs.princeton.edu/",
+  "citation": "Song et al., SUN RGB-D: A RGB-D Scene Understanding Benchmark Suite, CVPR 2015.",
+  "featured": false,
+  "added_by": "community",
+  "last_updated": "2026-05-16"
+}
