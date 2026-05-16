@@ -74,6 +74,29 @@
 
         <div class="control-panel__actions">
           <button
+            id="filter-toggle"
+            class="chip chip--muted chip--icon"
+            type="button"
+            aria-expanded="false"
+            aria-controls="filters-panel"
+          >
+            <span
+              id="filter-toggle-icon"
+              class="filter-toggle__icon"
+              aria-hidden="true"
+              >⌄</span
+            >
+            <span id="filter-toggle-label">Show filters</span>
+          </button>
+          <button
+            id="theme-toggle"
+            class="chip chip--muted"
+            type="button"
+            aria-pressed="false"
+          >
+            Dark theme
+          </button>
+          <button
             id="favorites-toggle"
             class="chip"
             type="button"
@@ -87,7 +110,12 @@
         </div>
       </section>
 
-      <section class="filters glass" aria-label="Dataset Filters">
+      <section
+        id="filters-panel"
+        class="filters glass"
+        aria-label="Dataset Filters"
+        hidden
+      >
         <div class="filter-group" data-filter-group="type">
           <h2>Type</h2>
           <div class="filter-chips" data-chip-container></div>

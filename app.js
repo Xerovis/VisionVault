@@ -12,6 +12,7 @@ const state = {
   sort: "recentlyAdded",
   favoritesOnly: false,
   favorites: loadFavorites(),
+  theme: loadTheme(),
   filters: {
     type: [],
     annotation_type: [],
@@ -32,6 +33,15 @@ const sortOptions = [
   { value: "sizeDesc", label: "Dataset Size (Largest)" },
 ];
 
+const DEFAULT_THUMBNAILS = [
+  "assets/images/default-orbit.svg",
+  "assets/images/default-grid.svg",
+  "assets/images/default-waves.svg",
+  "assets/images/default-prism.svg",
+];
+const FAVORITES_STORAGE_KEY = "visionvault:favorites";
+const THEME_STORAGE_KEY = "visionvault:theme";
+
 const els = {
   grid: document.querySelector("#dataset-grid"),
   cardTemplate: document.querySelector("#dataset-card-template"),
@@ -42,10 +52,13 @@ const els = {
   sortOptions: document.querySelector("#sort-options"),
   clearFilters: document.querySelector("#clear-filters"),
   filters: document.querySelector(".filters"),
+  filterToggle: document.querySelector("#filter-toggle"),
+  filterToggleLabel: document.querySelector("#filter-toggle-label"),
   resultCount: document.querySelector("#result-count"),
   emptyState: document.querySelector("#empty-state"),
   stats: document.querySelector("#hero-stats"),
   favoritesToggle: document.querySelector("#favorites-toggle"),
+  themeToggle: document.querySelector("#theme-toggle"),
   paginationControls: document.querySelector("#pagination-controls"),
   prevPage: document.querySelector("#prev-page"),
   nextPage: document.querySelector("#next-page"),
@@ -88,6 +101,7 @@ bootstrap().catch((error) => {
 });
 
 async function bootstrap() {
+  applyTheme(state.theme);
   state.index = await fetchJson("./data/index.json");
   renderHeaderStats();
   renderFilterOptions();
@@ -99,6 +113,13 @@ async function bootstrap() {
 }
 
 function wireInteractions() {
+  const syncFilterVisibility = (isOpen) => {
+    els.filters.hidden = !isOpen;
+    els.filterToggle.classList.toggle("is-open", isOpen);
+    els.filterToggle.setAttribute("aria-expanded", String(isOpen));
+    els.filterToggleLabel.textContent = isOpen ? "Hide filters" : "Show filters";
+  };
+
   const closeSortMenu = () => {
     els.sortSelect.classList.remove("is-open");
     els.sortOptions.classList.remove("is-open");
@@ -149,6 +170,12 @@ function wireInteractions() {
     }
   });
 
+  syncFilterVisibility(false);
+
+  els.filterToggle.addEventListener("click", () => {
+    syncFilterVisibility(els.filters.hidden);
+  });
+
   els.clearFilters.addEventListener("click", () => {
     state.query = "";
     els.searchInput.value = "";
@@ -162,6 +189,10 @@ function wireInteractions() {
       String(state.favoritesOnly),
     );
     applyAndRender();
+  });
+
+  els.themeToggle.addEventListener("click", () => {
+    applyTheme(state.theme === "light" ? "dark" : "light");
   });
 
   els.prevPage.addEventListener("click", () => {
@@ -351,10 +382,12 @@ function renderGrid() {
     });
 
     const image = node.querySelector(".dataset-card__image");
-    image.src = dataset.thumbnail;
+    const defaultThumbnail = getDefaultThumbnail(dataset.id || dataset.title);
+    image.src = getThumbnailUrl(dataset);
     image.alt = `${dataset.title} preview`;
     image.addEventListener("error", () => {
-      image.src = "assets/images/fallback.svg";
+      if (image.src.endsWith(defaultThumbnail)) return;
+      image.src = defaultThumbnail;
     });
 
     node.querySelector(".dataset-card__title").textContent = dataset.title;
@@ -389,7 +422,10 @@ function renderGrid() {
 
 async function openDatasetModal(id) {
   const detail = await getDatasetDetail(id);
-  modalController.open(detail, state.favorites.has(id));
+  modalController.open(detail, state.favorites.has(id), {
+    imageSrc: getThumbnailUrl(detail),
+    fallbackImageSrc: getDefaultThumbnail(id),
+  });
 }
 
 function renderHeaderStats() {
@@ -437,9 +473,7 @@ function renderPagination() {
 
 function loadFavorites() {
   try {
-    return new Set(
-      JSON.parse(localStorage.getItem("visionvault:favorites") || "[]"),
-    );
+    return new Set(JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]"));
   } catch {
     return new Set();
   }
@@ -452,9 +486,32 @@ function toggleFavorite(id) {
     state.favorites.add(id);
   }
   localStorage.setItem(
-    "visionvault:favorites",
+    FAVORITES_STORAGE_KEY,
     JSON.stringify([...state.favorites]),
   );
+}
+
+function loadTheme() {
+  try {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    return storedTheme === "dark" ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+}
+
+function applyTheme(theme) {
+  state.theme = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = state.theme;
+  els.themeToggle.setAttribute("aria-pressed", String(state.theme === "dark"));
+  els.themeToggle.textContent =
+    state.theme === "dark" ? "Light theme" : "Dark theme";
+
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, state.theme);
+  } catch {
+    // Ignore storage errors for theme preference.
+  }
 }
 
 async function ensureAllDetails() {
@@ -524,6 +581,27 @@ function uniqueSorted(items) {
   );
 }
 
+function isMissingThumbnail(thumbnail = "") {
+  const normalized = String(thumbnail).trim();
+  return !normalized || normalized.endsWith("/assets/images/fallback.svg") || normalized === "assets/images/fallback.svg";
+}
+
+function getThumbnailUrl(dataset) {
+  const fallback = getDefaultThumbnail(dataset.id || dataset.title || "visionvault");
+  return isMissingThumbnail(dataset.thumbnail) ? fallback : dataset.thumbnail;
+}
+
+function getDefaultThumbnail(seed) {
+  let hash = 0;
+  String(seed)
+    .split("")
+    .forEach((char) => {
+      hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+    });
+
+  return DEFAULT_THUMBNAILS[hash % DEFAULT_THUMBNAILS.length];
+}
+
 function initParticleField() {
   const canvas = document.querySelector("#particle-canvas");
   const ctx = canvas.getContext("2d");
@@ -558,7 +636,10 @@ function initParticleField() {
       if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
       if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
       ctx.beginPath();
-      ctx.fillStyle = "rgba(61, 232, 255, 0.6)";
+      ctx.fillStyle =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--particle-color")
+          .trim() || "rgba(53, 105, 223, 0.22)";
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fill();
     });
