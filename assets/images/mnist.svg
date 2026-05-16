@@ -1,0 +1,43 @@
+<svg width="267" height="150" viewBox="0 0 267 150" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="267" height="150" fill="#0f172a"></rect>
+
+  <!-- Pixel grid (scaled for small width) -->
+  <g fill="#1e293b">
+    <circle cx="40" cy="35" r="2.5"></circle>
+    <circle cx="70" cy="35" r="2.5"></circle>
+    <circle cx="100" cy="35" r="2.5"></circle>
+    <circle cx="130" cy="35" r="2.5"></circle>
+    <circle cx="160" cy="35" r="2.5"></circle>
+    <circle cx="190" cy="35" r="2.5"></circle>
+    <circle cx="220" cy="35" r="2.5"></circle>
+
+    <circle cx="40" cy="70" r="2.5"></circle>
+    <circle cx="70" cy="70" r="2.5"></circle>
+    <circle cx="100" cy="70" r="2.5"></circle>
+    <circle cx="130" cy="70" r="2.5"></circle>
+    <circle cx="160" cy="70" r="2.5"></circle>
+    <circle cx="190" cy="70" r="2.5"></circle>
+    <circle cx="220" cy="70" r="2.5"></circle>
+
+    <circle cx="40" cy="105" r="2.5"></circle>
+    <circle cx="70" cy="105" r="2.5"></circle>
+    <circle cx="100" cy="105" r="2.5"></circle>
+    <circle cx="130" cy="105" r="2.5"></circle>
+    <circle cx="160" cy="105" r="2.5"></circle>
+    <circle cx="190" cy="105" r="2.5"></circle>
+    <circle cx="220" cy="105" r="2.5"></circle>
+  </g>
+
+  <!-- MNIST stroke (centered) -->
+  <path d="M60 120 Q133 40 205 120" stroke="#38bdf8" stroke-width="6" fill="none" stroke-linecap="round"></path>
+
+  <path d="M85 95 Q133 25 180 95" stroke="#22c55e" stroke-width="5" fill="none" stroke-linecap="round"></path>
+
+  <!-- Label -->
+  <text x="133" y="140" font-size="16" fill="#94a3b8" text-anchor="middle" font-family="Arial">
+    MNIST
+  </text>
+
+</svg>
