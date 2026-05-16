@@ -117,7 +117,9 @@ function wireInteractions() {
     els.filters.hidden = !isOpen;
     els.filterToggle.classList.toggle("is-open", isOpen);
     els.filterToggle.setAttribute("aria-expanded", String(isOpen));
-    els.filterToggleLabel.textContent = isOpen ? "Hide filters" : "Show filters";
+    els.filterToggleLabel.textContent = isOpen
+      ? "Hide filters"
+      : "Show filters";
   };
 
   const closeSortMenu = () => {
@@ -278,7 +280,10 @@ function applyAndRender({ preservePage = false } = {}) {
     : byFilters;
 
   state.filtered = sortDatasets(byFavorites, state.sort);
-  const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.pageSize));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(state.filtered.length / state.pageSize),
+  );
   state.currentPage = preservePage
     ? Math.min(Math.max(1, state.currentPage), totalPages)
     : 1;
@@ -473,7 +478,9 @@ function renderPagination() {
 
 function loadFavorites() {
   try {
-    return new Set(JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]"));
+    return new Set(
+      JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]"),
+    );
   } catch {
     return new Set();
   }
@@ -583,11 +590,17 @@ function uniqueSorted(items) {
 
 function isMissingThumbnail(thumbnail = "") {
   const normalized = String(thumbnail).trim();
-  return !normalized || normalized.endsWith("/assets/images/fallback.svg") || normalized === "assets/images/fallback.svg";
+  return (
+    !normalized ||
+    normalized.endsWith("/assets/images/fallback.svg") ||
+    normalized === "assets/images/fallback.svg"
+  );
 }
 
 function getThumbnailUrl(dataset) {
-  const fallback = getDefaultThumbnail(dataset.id || dataset.title || "visionvault");
+  const fallback = getDefaultThumbnail(
+    dataset.id || dataset.title || "visionvault",
+  );
   return isMissingThumbnail(dataset.thumbnail) ? fallback : dataset.thumbnail;
 }
 
