@@ -24,7 +24,10 @@
 
     <header class="hero shell glass">
       <p class="hero__kicker">OPEN SOURCE · COMPUTER VISION</p>
-      <h1>VisionVault <br/> <span class="hero__title-highlight">Neural Dataset Archive</span></h1>
+      <h1>
+        VisionVault <br />
+        <span class="hero__title-highlight">Neural Dataset Archive</span>
+      </h1>
       <p>
         A cyberpunk-inspired intelligence dashboard to search, filter, sort, and
         explore computer vision datasets at scale.
@@ -79,33 +82,44 @@
             type="button"
             aria-expanded="false"
             aria-controls="filters-panel"
+            aria-label="Show filters"
           >
             <span
               id="filter-toggle-icon"
               class="filter-toggle__icon"
               aria-hidden="true"
-              >⌄</span
+              >🔽</span
             >
-            <span id="filter-toggle-label">Show filters</span>
+            <span id="filter-toggle-label" class="sr-only">Show filters</span>
           </button>
           <button
             id="theme-toggle"
-            class="chip chip--muted"
+            class="chip chip--muted chip--icon"
             type="button"
             aria-pressed="false"
+            aria-label="Toggle theme"
           >
-            Dark theme
+            <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+            <span class="sr-only">Toggle theme</span>
           </button>
           <button
             id="favorites-toggle"
-            class="chip"
+            class="chip chip--icon"
             type="button"
             aria-pressed="false"
+            aria-label="Show favorites only"
           >
-            Favorites only
+            <span id="favorites-toggle-icon" aria-hidden="true">♡</span>
+            <span class="sr-only">Favorites only</span>
           </button>
-          <button id="clear-filters" class="chip chip--muted" type="button">
-            Reset filters
+          <button
+            id="clear-filters"
+            class="chip chip--muted chip--icon"
+            type="button"
+            aria-label="Reset filters"
+          >
+            <span id="clear-filters-icon" aria-hidden="true">⟲</span>
+            <span class="sr-only">Reset filters</span>
           </button>
         </div>
       </section>
@@ -148,7 +162,11 @@
           <p id="result-count" aria-live="polite"></p>
         </div>
         <div id="dataset-grid" class="dataset-grid" aria-live="polite"></div>
-        <div id="pagination-controls" class="pagination hidden" aria-live="polite">
+        <div
+          id="pagination-controls"
+          class="pagination hidden"
+          aria-live="polite"
+        >
           <button id="prev-page" class="chip chip--muted" type="button">
             Previous
           </button>

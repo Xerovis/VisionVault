@@ -54,11 +54,14 @@ const els = {
   filters: document.querySelector(".filters"),
   filterToggle: document.querySelector("#filter-toggle"),
   filterToggleLabel: document.querySelector("#filter-toggle-label"),
+  filterToggleIcon: document.querySelector("#filter-toggle-icon"),
   resultCount: document.querySelector("#result-count"),
   emptyState: document.querySelector("#empty-state"),
   stats: document.querySelector("#hero-stats"),
   favoritesToggle: document.querySelector("#favorites-toggle"),
+  favoritesToggleIcon: document.querySelector("#favorites-toggle-icon"),
   themeToggle: document.querySelector("#theme-toggle"),
+  themeToggleIcon: document.querySelector("#theme-toggle-icon"),
   paginationControls: document.querySelector("#pagination-controls"),
   prevPage: document.querySelector("#prev-page"),
   nextPage: document.querySelector("#next-page"),
@@ -108,6 +111,7 @@ async function bootstrap() {
   renderSortOptions();
   applyAndRender();
   wireInteractions();
+  updateControlIcons();
   initParticleField();
   scheduleDetailHydration();
 }
@@ -117,9 +121,12 @@ function wireInteractions() {
     els.filters.hidden = !isOpen;
     els.filterToggle.classList.toggle("is-open", isOpen);
     els.filterToggle.setAttribute("aria-expanded", String(isOpen));
-    els.filterToggleLabel.textContent = isOpen
-      ? "Hide filters"
-      : "Show filters";
+    els.filterToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Hide filters" : "Show filters",
+    );
+    if (els.filterToggleIcon)
+      els.filterToggleIcon.textContent = isOpen ? "🔼" : "🔽";
   };
 
   const closeSortMenu = () => {
@@ -189,6 +196,12 @@ function wireInteractions() {
     els.favoritesToggle.setAttribute(
       "aria-pressed",
       String(state.favoritesOnly),
+    );
+    if (els.favoritesToggleIcon)
+      els.favoritesToggleIcon.textContent = state.favoritesOnly ? "♥" : "♡";
+    els.favoritesToggle.setAttribute(
+      "aria-label",
+      state.favoritesOnly ? "Showing favorites only" : "Show favorites only",
     );
     applyAndRender();
   });
@@ -511,14 +524,48 @@ function applyTheme(theme) {
   state.theme = theme === "dark" ? "dark" : "light";
   document.documentElement.dataset.theme = state.theme;
   els.themeToggle.setAttribute("aria-pressed", String(state.theme === "dark"));
-  els.themeToggle.textContent =
-    state.theme === "dark" ? "Light theme" : "Dark theme";
+  if (els.themeToggleIcon)
+    els.themeToggleIcon.textContent = state.theme === "dark" ? "☀" : "🌙";
+  els.themeToggle.setAttribute(
+    "aria-label",
+    state.theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
+  );
 
   try {
     localStorage.setItem(THEME_STORAGE_KEY, state.theme);
   } catch {
     // Ignore storage errors for theme preference.
   }
+}
+
+function updateControlIcons() {
+  if (els.themeToggleIcon)
+    els.themeToggleIcon.textContent = state.theme === "dark" ? "☀" : "🌙";
+  if (els.themeToggle)
+    els.themeToggle.setAttribute(
+      "aria-label",
+      state.theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
+    );
+
+  if (els.favoritesToggleIcon)
+    els.favoritesToggleIcon.textContent = state.favoritesOnly ? "♥" : "♡";
+  if (els.favoritesToggle)
+    els.favoritesToggle.setAttribute(
+      "aria-label",
+      state.favoritesOnly ? "Showing favorites only" : "Show favorites only",
+    );
+
+  if (els.clearFilters)
+    els.clearFilters.setAttribute("aria-label", "Reset filters");
+
+  const isOpen = !els.filters.hidden;
+  if (els.filterToggleIcon)
+    els.filterToggleIcon.textContent = isOpen ? "🔼" : "🔽";
+  if (els.filterToggle)
+    els.filterToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Hide filters" : "Show filters",
+    );
 }
 
 async function ensureAllDetails() {
